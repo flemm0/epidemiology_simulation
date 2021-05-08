@@ -1,17 +1,3 @@
-# BEFORE YOU TURN THIS IN, MAKE SURE TO CLEAR THE GLOBAL ENVIRONMENT AND TEST IT
-
-
-############## Week 6 Homework ##############
-############### Epidemiology ################
-
-# Write your functions in the order of the handout.
-# Use the test code provided to ensure that they work.
-# Make sure you name each function as it is in the test code.
-# DO NOT MODIFY THE PROVIDED TEST CODE. It will be used to grade your assignment.
-# You should also try some test code of your own
-# to make sure that the functions work for many cases.
-
-############# Activity 1 ###################
 # Function to set up the grid
 print("Activity 1")
 
@@ -38,9 +24,7 @@ createGrid <- function(dimensions, fraction){
 print(createGrid(c(6,4), 0.75))
 
 
-########### Activity 2 ########################
 # Function to check whether two arrays are identical
-print("Activity 2")
 
 areIdentical <- function(arr1, arr2){
   flag = TRUE
@@ -77,10 +61,8 @@ print(areIdentical(testGrid5, testGrid4)) # Should print FALSE
 
 
 
-############# Activity 3 ######################
 # Function to find the coordinates of all neighbors
 # of a given spot in an array
-print("Activity 3")
 
 findNeighbors <- function(inputarr, position){
   dimensions = dim(inputarr)
@@ -123,13 +105,10 @@ print(findNeighbors(testGrid1, c(6, 3)))
 # 6 2
 # 5 3
 # 6 4
-# Not necessarily in that order
 
 
-################ Activity 4 ################
 # Put a 0 in a 40X60 grid that you make with createGrid().
-# No test code for this one.
-print("Activity 4")
+
 generateRandomInfected = function(population){ ### function to generate a random individual to be patient 0
   dim = dim(population)
   randRow = sample(1:dim[1], size = 1)
@@ -148,9 +127,7 @@ generateRandomInfected = function(population){ ### function to generate a random
   return(population)
 }
 
-############## Activity 5 #################
 # Function to decide whether an individual should be infected
-print("Activity 5")
 
 getsInfected <- function(popgrid, position){
   neighbors = findNeighbors(popgrid, position)
@@ -177,10 +154,7 @@ print(getsInfected(testGrid3, c(5, 4))) # Should print TRUE
 print(getsInfected(testGrid3, c(1, 1))) # Should print FALSE
 
 
-############### Activity 6 ################
 # Code to calculate the fraction of infected individuals at the end of the simulation
-# This doesn't have to be a function.
-# Either way, store the fraction in a variable called fractionInfected.
 print("Activity 6")
 fracInf = function(population){
   dimensions = dim(population)
@@ -205,14 +179,8 @@ fractionInfected = fracInf(testGrid4)
 print(fractionInfected) # Should print 0.375
 
 
-############### Activity 7 #################
-# Putting it all together
-# Now write code to run the simulation once.
-# Use the base model and 10% vaccination.
-# Make sure you store fractionInfected at the end so that it prints to the console.
-# To plot, look at activity 7b.  [For activity 8-14 you may want to comment it out]
-print("Activity 7")
 
+#run simulation with created functions
 initialPop = createGrid(c(40,60), 0.1)
 initialPop = generateRandomInfected(initialPop)
 
@@ -255,7 +223,7 @@ print(fractionInfected) # Output may vary, but should be about 0.9
 
 
 
-################ Activity 8 ###############
+
 # Varying the vaccination rate
 # Make the plot described in the handout for #8.
 # Increase the vaccination rate from 2% to 98%, in increments of 2%.
@@ -290,22 +258,6 @@ plot(finalInfectFrac, vaccinationRate, ylim=c(0,1), xlim=c(0,1), ylab='vaccinati
 
 
 
-################ Activity 9 ###############
-# Make the vaccine less than perfect
-# Vary the vaccination rate
-# Make a plot like in Activity 8.
-# Increase the vaccination rate from 2% to 98%, in increments of 2%.
-# Each time, store the final infected fraction,
-# and plot the infected fraction vs. vaccination rate.
-
-
-
-
-
-############### Activities 10-16 ##############
-# Write any other code for making additional plots or modifying the model here.
-# You need to do at least one of 10-16
-# Comments or print statements describing what your code does are helpful!
 
 
 
