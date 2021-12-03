@@ -146,37 +146,34 @@ print(getsInfected(testGrid3, c(5, 4))) # Should print TRUE
 print(getsInfected(testGrid3, c(1, 1))) # Should print FALSE
 
 
-# Code to calculate the fraction of infected individuals at the end of the simulation
-print("Activity 6")
+#calculate the fraction of infected individuals at the end of the simulation
 fracInf = function(population){
   dimensions = dim(population)
   totalPop = dimensions[1]*dimensions[2]
-  nasty = 0
+  infected = 0
   for(i in 1:length(population)){
     if(population[i] == 0){
-      nasty = nasty + 1
+      infected = infected + 1
     }
   }
-  return(nasty/totalPop)
+  return(infected/totalPop)
 }
 
 
-testGrid4 <- array(data = (c(numeric(9), numeric(15) + 1)), dim = c(6, 4))
-# Write code to calculate the fraction of infected individuals (0s) in testGrid4
-# and store that fraction in fractionInfected.
+testGrid4 = array(data = (c(numeric(9), numeric(15) + 1)), dim = c(6, 4))
+#test code 
+#calculate the fraction of infected individuals (0s) in testGrid4 and store that fraction in fractionInfected.
 fractionInfected = fracInf(testGrid4)
 
-
-# Test code
 print(fractionInfected) # Should print 0.375
 
 
 
 #run simulation with created functions
-initialPop = createGrid(c(40,60), 0.1)
-initialPop = generateRandomInfected(initialPop)
+initialPop = createGrid(c(40,60), 0.1) #create population
+initialPop = generateRandomInfected(initialPop) #assign one individual to be patient 0
 
-infection = function(population){
+infection = function(population){ 
   newPop = population
   u = dim(population)
   infCount = 0
@@ -187,9 +184,10 @@ infection = function(population){
       }
     }
   }
-  return(newPop)
+  return(newPop) #returns a population with new infections
 }
 
+#simulates the infection spread throughout the entire population
 runInfection = function(population){
   dim = dim(initialPop)
   totalPop = dim[1]*dim[2]
@@ -209,18 +207,15 @@ fractionInfected = runInfection(initialPop)
 
 
 
-# Test code
-print(fractionInfected) # Output may vary, but should be about 0.9
+#test code
+print(fractionInfected) #should be about 0.9
 
 
 
 
 
-# Varying the vaccination rate
-# Make the plot described in the handout for #8.
-# Increase the vaccination rate from 2% to 98%, in increments of 2%.
-# Each time, store the final infected fraction,
-# and plot the infected fraction vs. vaccination rate.
+####Varying the vaccination rate from 2% to 98% in 2% increments
+###Each time, store the final infected fraction and plot the infected fraction vs. vaccination rate.
 
 
 runInfectionNoPlot = function(population){ ### runs the infection without plotting, to decrease run time
