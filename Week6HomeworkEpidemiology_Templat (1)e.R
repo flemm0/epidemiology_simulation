@@ -1,11 +1,10 @@
-# Function to set up the grid
-print("Activity 1")
-
-createGrid <- function(dimensions, fraction){
+##Function to set up the grid
+#paramters are size of population and fraction of vaccinated individuals
+createGrid = function(dimensions, fraction){
   pop = (dimensions[1]*dimensions[2])
-  num2s = pop*fraction
-  num1s = pop - num2s
-  popvec = c()
+  num2s = pop*fraction #size of population times fraction of vaccinated individuals
+  num1s = pop - num2s #rest of population is unvaccinated
+  popvec = c() #initialize vector to store number of individuals in the population
   for(i in 1:num2s){
     popvec = c(popvec, 2)
   }
@@ -15,29 +14,27 @@ createGrid <- function(dimensions, fraction){
   
   popvec1 = sample(popvec, size = pop)
   
-  arr = array(data=popvec1, dim=dimensions)
+  arr = array(data=popvec1, dim=dimensions) #creates array from population vector with individuals randomly distributed
   return(arr)
 }
 
-# Test code
-# Should create a 6x4 grid with 18 2s and six 1s randomly distributed
-print(createGrid(c(6,4), 0.75))
+#test code
+print(createGrid(c(6,4), 0.75)) #create a 6x4 grid with 18 2s and six 1s randomly distributed
 
 
-# Function to check whether two arrays are identical
-
-areIdentical <- function(arr1, arr2){
+##Function to check whether two arrays are identical
+areIdentical = function(arr1, arr2){
   flag = TRUE
   x = dim(arr1)
   y = dim(arr2)
-  for(i in 1:length(x)){
+  for(i in 1:length(x)){ #case to check if arrays are same size
     if(x[i] != y[i]){
       flag = FALSE
       break
     }
   }
   
-  for(i in 1:length(arr1)){
+  for(i in 1:length(arr1)){ #checks values in both arrays
     if(arr1[i] != arr2[i]){
       flag = FALSE
       break
@@ -47,30 +44,28 @@ areIdentical <- function(arr1, arr2){
   return(flag)
 }
 
-# Test code
-testGrid1 <- array(data = c(numeric(23), 1), dim = c(6, 4))
-testGrid2 <- testGrid1
-print(areIdentical(testGrid1, testGrid2)) # Should print TRUE
-testGrid2 <- array(data = c(numeric(10), 1, numeric(13)), dim = c(6, 4))
-print(areIdentical(testGrid1, testGrid2)) # Should print FALSE
-testGrid3 <- array(data=1:6, dim = c(3,2))
-testGrid4 <- array(data=1:6, dim = c(2,3))
-print(areIdentical(testGrid3, testGrid4)) # Should print FALSE
-testGrid5 <- array(data=c(3,2,4,4,5,6), dim = c(2,3))
-print(areIdentical(testGrid5, testGrid4)) # Should print FALSE
+#Test code
+testGrid1 = array(data = c(numeric(23), 1), dim = c(6, 4))
+testGrid2 = testGrid1
+print(areIdentical(testGrid1, testGrid2)) #TRUE
+testGrid2 = array(data = c(numeric(10), 1, numeric(13)), dim = c(6, 4))
+print(areIdentical(testGrid1, testGrid2)) #FALSE
+testGrid3 = array(data=1:6, dim = c(3,2))
+testGrid4 = array(data=1:6, dim = c(2,3))
+print(areIdentical(testGrid3, testGrid4)) #FALSE
+testGrid5 = array(data=c(3,2,4,4,5,6), dim = c(2,3))
+print(areIdentical(testGrid5, testGrid4)) #FALSE
 
 
 
-# Function to find the coordinates of all neighbors
-# of a given spot in an array
-
-findNeighbors <- function(inputarr, position){
+##function to find the coordinates of all neighbors of a given spot in an array
+findNeighbors = function(inputarr, position){
   dimensions = dim(inputarr)
   rownum = position[1]
   colnum = position[2]
-  vec1 = c()
-  vec2 = c()
-  if(colnum != 1){
+  vec1 = c() #vector to store row positions of all neighbors
+  vec2 = c() #vector to store column positions of all neighbors
+  if(colnum != 1){ #if statements to check that the position of individual is not at the edge of the grid
     vec1 = c(vec1, rownum)
     vec2 = c(vec2, colnum - 1)
   }
@@ -87,29 +82,26 @@ findNeighbors <- function(inputarr, position){
     vec2 = c(vec2, colnum)
   }
   
-  vec3 = c(vec1, vec2)
-  outputarr = array(data=vec3, dim=c((length(vec3)/2),2))
+  vec3 = c(vec1, vec2) #concatenate row and col vectors together
+  outputarr = array(data=vec3, dim=c((length(vec3)/2),2)) #return data as array
   return(outputarr)
 }
 
-# Test code
+#test code
 print(findNeighbors(testGrid1, c(2, 2)))
-# Should print the following:
-# 1 2
-# 2 3
-# 3 2
-# 2 1
-# Not necessarily in that order
+#should return:
+#1 2
+#2 3
+#3 2
+#2 1
 print(findNeighbors(testGrid1, c(6, 3)))
-# Should print the following:
-# 6 2
-# 5 3
-# 6 4
+#should return:
+#6 2
+#5 3
+#6 4
 
-
-# Put a 0 in a 40X60 grid that you make with createGrid().
-
-generateRandomInfected = function(population){ ### function to generate a random individual to be patient 0
+###function to generate a random individual to be patient 0
+generateRandomInfected = function(population){ 
   dim = dim(population)
   randRow = sample(1:dim[1], size = 1)
   randCol = sample(1:dim[2], size = 1)
@@ -127,8 +119,8 @@ generateRandomInfected = function(population){ ### function to generate a random
   return(population)
 }
 
-# Function to decide whether an individual should be infected
 
+#if an unvaccinated individual is adjacent to an infected individual, the unvaccinated individual also gets infected
 getsInfected <- function(popgrid, position){
   neighbors = findNeighbors(popgrid, position)
   flag = FALSE
