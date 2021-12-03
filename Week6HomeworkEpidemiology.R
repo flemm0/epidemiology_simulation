@@ -240,7 +240,7 @@ for(i in vaccinationRate){
   finalInfectFrac = c(finalInfectFrac, runInfectionNoPlot(initialPop))
 }
 
-plot(finalInfectFrac, vaccinationRate, ylim=c(0,1), xlim=c(0,1), ylab='vaccination rate', xlab='final fraction of infected individuals')
+plot(finalInfectFrac, vaccinationRate, ylim=c(0,1), xlim=c(0,1), ylab='vaccination rate', xlab='final fraction of infected individuals', main = 'rate of infection vs vaccination')
 
 
 
